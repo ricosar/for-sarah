@@ -1,0 +1,169 @@
+# ============================================
+# CI Pipeline - Runs on All Branches
+# ============================================
+#
+# INSTRUCTIONS:
+# 1. Copy this file to .github/workflows/ci.yml in your project
+# 2. Uncomment the section for your technology (Node.js, Python, Java, .NET)
+# 3. Delete or comment out the sections you don't need
+# 4. Update the TODO items for your specific project
+#
+# ============================================
+
+name: CI Pipeline
+
+on:
+  push:
+    branches: ['*']
+  pull_request:
+    branches: [main, staging]
+
+jobs:
+  # ==========================================
+  # OPTION 1: NODE.JS PROJECT
+  # ==========================================
+  # Uncomment this section if using Node.js
+  # ==========================================
+  
+  # test-node:
+  #   name: Test (Node.js)
+  #   runs-on: ubuntu-latest
+  #   
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v4
+  #
+  #     - name: Setup Node.js
+  #       uses: actions/setup-node@v4
+  #       with:
+  #         node-version: '18'      # TODO: Update to your Node version
+  #         cache: 'npm'
+  #
+  #     - name: Install dependencies
+  #       run: npm ci
+  #
+  #     - name: Run linting
+  #       run: npm run lint         # TODO: Remove if no linting configured
+  #
+  #     - name: Run tests
+  #       run: npm test             # TODO: Update if different test command
+  #
+  #     - name: Run tests with coverage
+  #       run: npm run test:coverage  # TODO: Update or remove if not using coverage
+
+  # ==========================================
+  # OPTION 2: PYTHON PROJECT
+  # ==========================================
+  # Uncomment this section if using Python
+  # ==========================================
+  
+  # test-python:
+  #   name: Test (Python)
+  #   runs-on: ubuntu-latest
+  #   
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v4
+  #
+  #     - name: Setup Python
+  #       uses: actions/setup-python@v5
+  #       with:
+  #         python-version: '3.11'   # TODO: Update to your Python version
+  #         cache: 'pip'
+  #
+  #     - name: Install dependencies
+  #       run: |
+  #         python -m pip install --upgrade pip
+  #         pip install -r requirements.txt
+  #         pip install pytest pytest-cov flake8  # TODO: Adjust test dependencies
+  #
+  #     - name: Run linting
+  #       run: flake8 .             # TODO: Update or remove if not using flake8
+  #
+  #     - name: Run tests
+  #       run: pytest               # TODO: Update if different test command
+  #
+  #     - name: Run tests with coverage
+  #       run: pytest --cov=./ --cov-report=xml  # TODO: Update coverage path
+
+  # ==========================================
+  # OPTION 3: JAVA/SPRING PROJECT
+  # ==========================================
+  # Uncomment this section if using Java
+  # ==========================================
+  
+  test-java:
+    name: Test (Java)
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+  
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'      # TODO: Update to your Java version
+          distribution: 'temurin'
+          cache: 'maven'
+  
+      - name: Run tests
+        run: mvn test             # TODO: Update if using Gradle: ./gradlew test
+  
+      - name: Run tests with coverage
+        run: mvn test jacoco:report  # TODO: Update for your coverage tool
+
+  # ==========================================
+  # OPTION 4: .NET PROJECT
+  # ==========================================
+  # Uncomment this section if using .NET
+  # ==========================================
+  
+  # test-dotnet:
+  #   name: Test (.NET)
+  #   runs-on: ubuntu-latest
+  #   
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v4
+  #
+  #     - name: Setup .NET
+  #       uses: actions/setup-dotnet@v4
+  #       with:
+  #         dotnet-version: '8.0'   # TODO: Update to your .NET version
+  #
+  #     - name: Restore dependencies
+  #       run: dotnet restore
+  #
+  #     - name: Build
+  #       run: dotnet build --no-restore
+  #
+  #     - name: Run tests
+  #       run: dotnet test --no-build --verbosity normal
+
+  # ==========================================
+  # DOCKER BUILD TEST (ALL PROJECTS)
+  # ==========================================
+  # This verifies your Dockerfile builds successfully
+  # ==========================================
+  
+  build-docker:
+    name: Docker Build Test
+    runs-on: ubuntu-latest
+    needs: [test-java]          # TODO: Uncomment and update to match your test job name
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: false
+          tags: ${{ github.repository }}:test
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
