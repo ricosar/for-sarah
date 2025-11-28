@@ -27,7 +27,7 @@ public class AppointmentController {
 	    // Add the list of appointments to the model
 	    model.addAttribute("appointmentList", appointmentList);
 
-	    // Create a new empty appointment and add it to the model
+	    // Create a new empty appointment and add it to the models
 	    Appointment appointment = new Appointment();
 	    model.addAttribute("appointment", appointment);
 
