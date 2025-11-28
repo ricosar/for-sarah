@@ -113,7 +113,8 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
       - name: Security audit
-        run: mvn org.owasp:dependency-check-maven:check || echo "Vulnerabilities found"
+        run: mvn org.owasp:dependency-check-maven:check -DfailBuildOnCVSS=7 #If you find any vulnerability in my dependencies with a CVSS score of 7 or higher, fail the build.
+
 
       - name: Check for hardcoded secrets
         run: |
