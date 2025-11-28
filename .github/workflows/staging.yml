@@ -52,7 +52,7 @@ jobs:
       #     pip install -r requirements.txt
       #     pytest
 
-      Java
+      #Java
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
@@ -96,7 +96,7 @@ jobs:
           echo "Checking staging health endpoint..."
           
           # TODO: Update the health check URL for your application
-          curl -f http://localhost:5000/health || exit 1
+          curl -f http://localhost:5000/actuator/health || exit 1
           
           echo ""
           echo "Checking staging responds..."
