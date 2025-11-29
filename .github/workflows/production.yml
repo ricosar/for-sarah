@@ -113,7 +113,7 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
       - name: Security audit
-        run: mvn org.owasp:dependency-check-maven:check -Dnvd.apiKey=${{ secrets.NVD_API_KEY }} #uses an API key to be faster
+        run: mvn org.owasp:dependency-check-maven:check -DnvdApiKey=${{ secrets.NVD_API_KEY }}  #uses an API key to be faster
 
 
 
