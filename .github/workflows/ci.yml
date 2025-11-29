@@ -119,7 +119,7 @@ jobs:
   # Uncomment this section if using .NET
   # ==========================================
   
-  # test-dotnet:
+  # test-dotnets:
   #   name: Test (.NET)
   #   runs-on: ubuntu-latest
   #   
