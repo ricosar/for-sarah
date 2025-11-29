@@ -173,7 +173,7 @@ jobs:
 
       - name: Verify production security
         run: |
-          echo "Verifying production security settings..."
+          echo "Verifying production security settings...."
           
           # Check that detailed errors are not exposed
           RESPONSE=$(curl -s http://localhost:6000/nonexistent-endpoint-12345)
