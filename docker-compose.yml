@@ -96,7 +96,7 @@ networks:
 # ==========================================
 # OPTIONAL: DATABASE SERVICES
 # ==========================================
-# Uncomment and configure if your app needs a database
+# Uncomment and configure if your app needs a databases
 #
 #   database:
 #     image: postgres:15-alpine    # or mysql:8, mongo:6, etc.
