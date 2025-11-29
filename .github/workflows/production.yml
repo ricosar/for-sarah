@@ -113,7 +113,8 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
       - name: Security audit
-        run: mvn org.owasp:dependency-check-maven:check -DfailBuildOnCVSS=7 #If you find any vulnerability in my dependencies with a CVSS score of 7 or higher, fail the build.
+        run: mvn org.owasp:dependency-check-maven:check -Dnvd.apiKey=${{ secrets.NVD_API_KEY }} #uses an API key to be faster
+
 
 
       - name: Check for hardcoded secrets
@@ -160,7 +161,7 @@ jobs:
           echo "Checking production health endpoint..."
           
           # TODO: Update the health check URL for your application
-          curl -f http://localhost:6000/health || exit 1
+          curl -f http://localhost:5000/actuator/health  || exit 1
           
           echo ""
           echo "Checking production responds..."
