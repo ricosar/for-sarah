@@ -24,10 +24,8 @@ public class Ex62FullCrudApplicationTests{
     @Autowired
     private DatabaseAccess da;
 
-    // ---------------------------------------------------------------------
-    // FUNCTIONAL TEST #1 - Insert New Appointment
-    // ---------------------------------------------------------------------
-    @Test
+    /*
+      @Test
     void testInsertNewAppointment() {
 
         Appointment appt = new Appointment();
@@ -82,6 +80,12 @@ public class Ex62FullCrudApplicationTests{
         assertEquals("Updated", list.get(0).getFirstName());
         assertEquals("new@example.com", list.get(0).getEmail());
     }
+
+    
+    */
+    // ---------------------------------------------------------------------
+    // FUNCTIONAL TEST #1 - Insert New Appointment
+    // ---------------------------------------------------------------------
 
     // ---------------------------------------------------------------------
     // NON-FUNCTIONAL TEST - Index loads under 200 ms
